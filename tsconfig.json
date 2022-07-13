@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true, // import * as React from -> import React from 으로 사용 할 수 있게 해준다.
+    "sourceMap": true, // 오류를 찾기 편하다.
+    "lib": ["ES2020", "DOM"], // 라이브러리 최신 문법 , DOM 사용
+    "jsx": "react", // jsx를 react로 인식시킨다.
+    "module": "esnext", // esnext 최신 모듈 사용하겠다. import export
+    "moduleResolution": "Node", // 모듈을 node가 해석 할 수 있게 하겠다.
+    "target": "es5", // es5로 변환 해주겠다.
+    "strict": true, // TS 체크를 엄격하게 하겠다.
+    "resolveJsonModule": true, // import json 을 허락하겟다.
+    "baseUrl": ".",
+    "paths": { // ../../pages/a 를 @pages/a 로 절대경로 처럼 보여주게 하겠다.
+      "@hooks/*": ["./src/hooks/*"],
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@typings/*": ["./src/typings/*"]
+    }
+  }
+}
