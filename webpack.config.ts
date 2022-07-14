@@ -1,7 +1,7 @@
 import path from 'path';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import webpack, { Configuration as WebpackConfiguration } from "webpack";
-import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
+import webpack, {Configuration as WebpackConfiguration} from "webpack";
+import {Configuration as WebpackDevServerConfiguration} from "webpack-dev-server";
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -24,6 +24,7 @@ const config: Configuration = {
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@typings': path.resolve(__dirname, 'src/typings'),
+      "@store": path.resolve(__dirname, 'src/store'),
     },
   },
   entry: {
@@ -39,7 +40,7 @@ const config: Configuration = {
             [
               '@babel/preset-env',
               {
-                targets: { browsers: ['IE 10'] },
+                targets: {browsers: ['IE 10']},
                 debug: isDevelopment,
               },
             ],
@@ -67,7 +68,7 @@ const config: Configuration = {
       //   files: "./src/**/*",
       // },
     }),
-    new webpack.EnvironmentPlugin({ NODE_ENV: isDevelopment ? 'development' : 'production' }),
+    new webpack.EnvironmentPlugin({NODE_ENV: isDevelopment ? 'development' : 'production'}),
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -77,8 +78,8 @@ const config: Configuration = {
   devServer: {
     historyApiFallback: true,
     port: 3090,
-    devMiddleware: { publicPath: '/dist/' },
-    static: { directory: path.resolve(__dirname) },
+    devMiddleware: {publicPath: '/dist/'},
+    static: {directory: path.resolve(__dirname)},
   },
 };
 

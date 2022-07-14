@@ -1,8 +1,7 @@
 {
   "name": "chatting-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Chatting-Web App in add sokcet.io.",
   "scripts": {
     "build": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack",
     "dev": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack serve --env development"
@@ -12,15 +11,19 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@types/gravatar": "^1.8.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "cross-env": "^7.0.3",
+    "gravatar": "^1.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "typescript": "^4.7.4"
+    "styled-components": "^5.3.5",
+    "typescript": "^4.7.4",
+    "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
