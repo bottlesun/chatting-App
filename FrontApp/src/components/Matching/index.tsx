@@ -29,9 +29,7 @@ const Matching = () => {
 
   }, [setInputText])
 
-  if (login) {
-    return <Navigate to="chat"/>
-  }
+
 
   return (
     <MatchingContainer>
