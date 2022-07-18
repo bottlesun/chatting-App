@@ -5,13 +5,13 @@ import {mainColor, boxShadow, hoverColor} from '@utils/commonStyles'
 export const ChatPageContainer = styled.div`
   max-width: 450px;
   min-width: 350px;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
   box-shadow: ${boxShadow};
+  position: relative;
 
 `;
 
@@ -23,7 +23,7 @@ export const ChatHeader = styled.div`
   box-shadow: ${boxShadow};
   display: flex;
   justify-content: center;
-  overflow: hidden;
+
 
   img {
     width: 25px;

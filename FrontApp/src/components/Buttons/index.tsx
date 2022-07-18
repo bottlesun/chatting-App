@@ -3,11 +3,11 @@ import {Button} from "@components/Buttons/styles";
 
 export interface ButtonInterface {
   disabled: boolean | undefined,
-  children: string | "버튼"
+  children: string,
 }
 
-const Buttons = ({disabled, children}: ButtonInterface) => {
-  return <Button disabled={disabled}>{children}</Button>
+const Buttons = ({disabled, children }: ButtonInterface) => {
+  return <Button disabled={disabled} >{children}</Button>
 
 }
 

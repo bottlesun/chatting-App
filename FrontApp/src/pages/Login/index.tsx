@@ -7,20 +7,20 @@ import useSWR from "swr";
 import fetcher from "@utils/fetcher";
 
 const LogIn = () => {
-  const {data , error , mutate} = useSWR('/api/users' ,fetcher , {
-    dedupingInterval : 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
+  const {data, error, mutate} = useSWR('/api/users', fetcher, {
+    dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
   const [logInError, setLogInError] = useState(false);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const onSubmit = useCallback(
-    (e:FormEvent<HTMLFormElement>) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       setLogInError(false);
 
       axios.post('/api/users/login',
-        {email, password},{
-        withCredentials: true // post 는 3번째 자리 , get 은 2번째 자리/ 서버끼리 도메인이 다르더라도, 서로간의 쿠키가 전달 될 수 있게해줌
+        {email, password}, {
+          withCredentials: true // post 는 3번째 자리 , get 은 2번째 자리/ 서버끼리 도메인이 다르더라도, 서로간의 쿠키가 전달 될 수 있게해줌
         },)
         .then(() => {
           mutate()
@@ -32,6 +32,11 @@ const LogIn = () => {
     },
     [email, password],
   );
+
+  if (data) {
+    // return <Navigate to="/chat"/>
+    return <Navigate to="/matchingchannel"/>
+  }
 
   return (
     <div id="container">

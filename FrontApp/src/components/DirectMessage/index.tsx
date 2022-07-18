@@ -18,8 +18,9 @@ const DirectMessage = () => {
     e.preventDefault()
     if(!chatData) return;
     console.log('onsubmitChatFrom : ', chatData)
-    setChatData("");0
+    setChatData("");
   }, [chatData, setChatData])
+
 
   return (
     <DM>
@@ -32,7 +33,7 @@ const DirectMessage = () => {
         >
         </TextArea>
 
-        <Buttons disabled={false} children="전송"/>
+        <Buttons disabled={false} children="전송" />
       </Form>
     </DM>
   )
