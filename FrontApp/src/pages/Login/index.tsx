@@ -1,10 +1,11 @@
 import useInput from '@hooks/useInput';
 import React, {FormEvent, useCallback, useState} from 'react';
 import {Button, Error, Form, Header, Input, Label, LinkContainer} from '@pages/SignUp/styles';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, Navigate,} from 'react-router-dom';
 import axios from "axios";
 import useSWR from "swr";
 import fetcher from "@utils/fetcher";
+
 
 const LogIn = () => {
   const {data, error, mutate} = useSWR('/api/users', fetcher, {
@@ -22,20 +23,23 @@ const LogIn = () => {
         {email, password}, {
           withCredentials: true // post 는 3번째 자리 , get 은 2번째 자리/ 서버끼리 도메인이 다르더라도, 서로간의 쿠키가 전달 될 수 있게해줌
         },)
-        .then(() => {
-          mutate()
+        .then((response) => {
+          mutate(response.data)
         })
         .catch((error) => {
           console.log(error.response);
           setLogInError(true);
         })
     },
-    [email, password],
+    [email, password,mutate],
   );
 
+  if (data === undefined) {
+    return <div>...로딩중</div>
+  }
+
   if (data) {
-    // return <Navigate to="/chat"/>
-    return <Navigate to="/matchingchannel"/>
+    return <Navigate to="/matching"/>
   }
 
   return (

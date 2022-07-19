@@ -3,9 +3,10 @@ import {ChattingChannelContainer} from "@components/ChattingChannel/styles";
 import useSWR from "swr";
 import fetcher from "@utils/fetcher";
 import ChattingRoomList from "@components/ChattingRoomList";
+import {IChannel, IUser} from "@typings/db";
 
 const ChattingChannel = () => {
-  const {data: ChannelData} = useSWR('/api/workspaces', fetcher, {
+  const {data: ChannelData} = useSWR<IChannel[]>('/api/workspaces/sleact/channels', fetcher, {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
 
@@ -24,8 +25,8 @@ const ChattingChannel = () => {
 
         <tbody>
         {
-          ChannelData?.map((v: string[] | undefined, i: number) => {
-            return <ChattingRoomList key={i} />
+          ChannelData?.map((channel,i) => {
+            return <ChattingRoomList key={i}  {...channel} />
           })
         }
 

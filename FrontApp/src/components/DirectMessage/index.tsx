@@ -33,7 +33,7 @@ const DirectMessage = () => {
         >
         </TextArea>
 
-        <Buttons disabled={false} children="전송" />
+        <Buttons type="submit" disabled={false} children="전송" />
       </Form>
     </DM>
   )

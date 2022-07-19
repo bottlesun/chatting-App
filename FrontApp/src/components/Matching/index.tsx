@@ -1,42 +1,49 @@
 import React, {useCallback, useRef, useState} from "react";
-import {Navigate} from 'react-router-dom';
 import {Form, MatchingContainer} from "@components/Matching/styles";
 import Buttons from "@components/Buttons";
 import axios from "axios";
+import useInput from "@hooks/useInput";
+import {useParams} from "react-router";
 import useSWR from "swr";
+import {IChannel, IUser} from "@typings/db";
 import fetcher from "@utils/fetcher";
-import gravatar from "gravatar";
-import {workerData} from "worker_threads";
+
 
 const Matching = () => {
-  const {data, error, mutate} = useSWR('/api/users', fetcher, {
-    dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
-  });
   const [inputText, setInputText] = useState('');
+  const {workspace, channel} = useParams<{ workspace: string, channel: string }>(); // :파라미터 값을 불러온다
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const {data: channelData,mutate} = useSWR<IChannel>( // 로그인 하지 않은 상태면 null 로 이동
+    `api/workspaces/sleact/channels`, fetcher);
 
   const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.currentTarget.value)
   }, [setInputText])
 
-  const onSubmitForm = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const onClickAddChat = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const input = inputRef.current;
     if (input?.value === "" || input?.value === null) return;
-    console.log('채널이동');
+    axios.post(`api/workspaces/sleact/channels`, { // useParams
+      name: inputText, // 새로운 채널 명
+    }, {
+      withCredentials: true // 누가 생성했는지 * 쿠키공유
+    }).then(() => {
+      mutate();
+      setInputText('');
+    }).catch((error) => console.dir(error))
+  }, [setInputText, inputRef, inputText])
 
-    setInputText('');
-  }, [setInputText, inputRef])
 
   return (
     <MatchingContainer>
-      <Form onSubmit={onSubmitForm}>
+      <Form onSubmit={onClickAddChat}>
         <input ref={inputRef}
                value={inputText}
                onChange={onChange}
                type="text"
                placeholder="채팅방을 생성하세요."/>
-        <Buttons disabled={false} children="Join"/>
+        <Buttons type="submit" disabled={false} children="Join"/>
       </Form>
     </MatchingContainer>
   )

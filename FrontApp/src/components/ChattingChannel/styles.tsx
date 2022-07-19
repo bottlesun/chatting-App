@@ -55,8 +55,9 @@ export const ChattingChannelContainer = styled.div`
   }
 
   tbody {
+
     & tr {
-      cursor: pointer;
+      cursor: default;
 
       :hover {
         background: rgba(0, 0, 0, 0.01);
@@ -67,11 +68,23 @@ export const ChattingChannelContainer = styled.div`
       :nth-of-type(3) {
         :hover {
           background: ${mainColor};
+        }
+      }
+
+      & a {
+        text-decoration: none;
+        display: block;
+        width: 100%;
+
+        :hover {
           font-weight: bold;
         }
       }
     }
+
+
   }
+
 
 
 `;

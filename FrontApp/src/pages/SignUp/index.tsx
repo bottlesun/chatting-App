@@ -3,17 +3,22 @@ import React, {ChangeEvent, FormEvent, useCallback, useState} from "react";
 import axios from 'axios';
 import {Form, Label, Input, LinkContainer, Button, Header, Error, Success} from './styles';
 import {Link, Navigate, Route} from 'react-router-dom';
+import useSWR from "swr";
+import fetcher from "@utils/fetcher";
 
 
 const SingUp = () => {
+  const {data} = useSWR('/api/users', fetcher, {
+    dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
+  });
 
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
   const [password, , setPassword] = useInput('');
   const [passwordCheck, , setPasswordCheck] = useInput('');
   const [mismatchError, setMismatchError] = useState(false);
-  const [signUpError,setSignUpError] = useState('');
-  const [signUpSuccess,setSignUpSuccess] = useState(false);
+  const [signUpError, setSignUpError] = useState('');
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   const onChangePassword = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -46,6 +51,13 @@ const SingUp = () => {
       })
   }, [email, nickname, password, passwordCheck, mismatchError],);
 
+  if (data === undefined) {
+    return <div>...로딩중</div>
+  }
+
+  if (data) {
+    return <Navigate to="/matching"/>
+  }
 
 
   return (

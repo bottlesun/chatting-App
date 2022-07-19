@@ -1,16 +1,16 @@
 import React from "react";
+import {Link} from "react-router-dom"
 
-
-const ChattingRoomList = () => {
+const ChattingRoomList = ({...channel}) => {
 
   return (
+
     <tr>
-      <td>1</td>
-      <td>헬로우</td>
-      <td>Go!</td>
+      <td>{channel.id}</td>
+      <td>{channel.name} ({channel?.Members.length})</td>
+      <td><Link to='/matching/channels/:channel/chat'>Go! </Link></td>
     </tr>
   )
-
 }
 
 export default ChattingRoomList

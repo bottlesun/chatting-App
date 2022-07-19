@@ -22,7 +22,8 @@ export const ChatHeader = styled.div`
   height: 45px;
   box-shadow: ${boxShadow};
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
 
 
   img {
@@ -33,8 +34,20 @@ export const ChatHeader = styled.div`
 
   h3 {
     margin: 0;
+
     span {
       font-weight: bold;
     }
   }
+
+  a {
+    width: 20px;
+    height: 20px;
+
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
 `
