@@ -1,9 +1,13 @@
-import React, {ChangeEvent, FormEvent, useCallback, useRef, useState} from "react";
-import {DM, Form, TextArea} from "@components/DirectMessage/styles";
+import React, {ChangeEvent, FormEvent, useCallback, useRef, FC} from "react";
+import {ButtonWrap, DM, Form, InviteBtn, TextArea} from "@components/DirectMessage/styles";
 import Buttons from "@components/Buttons";
 import {DMdataStore} from "@store/DMdata.store";
 
-const DirectMessage = () => {
+interface ClickRoom {
+  onClickInviteChattingRoom: (e:React.MouseEvent) => void
+}
+
+const DirectMessage: FC<ClickRoom> = ({onClickInviteChattingRoom}) => {
   const useStore = DMdataStore((state) => state);
   const TextAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -16,7 +20,7 @@ const DirectMessage = () => {
   const onsubmitChatFrom = useCallback((e: FormEvent<HTMLFormElement>) => {
     // DM 보내기
     e.preventDefault()
-    if(!chatData) return;
+    if (!chatData) return;
     console.log('onsubmitChatFrom : ', chatData)
     setChatData("");
   }, [chatData, setChatData])
@@ -33,7 +37,10 @@ const DirectMessage = () => {
         >
         </TextArea>
 
-        <Buttons type="submit" disabled={false} children="전송" />
+        <ButtonWrap>
+          <Buttons type="submit" disabled={false} children="전송"/>
+          <InviteBtn onClick={onClickInviteChattingRoom}>초대</InviteBtn>
+        </ButtonWrap>
       </Form>
     </DM>
   )

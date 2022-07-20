@@ -5,7 +5,7 @@ import {mainColor, boxShadow, hoverColor} from '@utils/commonStyles'
 export const Button = styled.button`
 
     width: 70px;
-    height: 35px;
+    height: 30px;
     margin-left: 5px;
     font-weight: bold;
     background-color: ${mainColor};

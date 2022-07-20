@@ -23,4 +23,33 @@ export const TextArea = styled.textarea`
   :focus, :hover {
     outline: none;
   }
+
+
+`
+export const InviteBtn = styled.div`
+  width: 70px;
+  height: 30px;
+  margin-left: 5px;
+  font-weight: bold;
+  background-color: ${mainColor};
+  border: none;
+  border-radius: 8px;
+  box-shadow: ${boxShadow};
+  transition: all 0.5s;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: center;
+  line-height: 30px;
+  margin-top:10px;
+
+  :hover {
+    background-color: ${hoverColor};
+`
+
+export const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+
 `

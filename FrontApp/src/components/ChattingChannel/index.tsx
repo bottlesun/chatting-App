@@ -25,11 +25,10 @@ const ChattingChannel = () => {
 
         <tbody>
         {
-          ChannelData?.map((channel,i) => {
-            return <ChattingRoomList key={i}  {...channel} />
+          ChannelData?.map((channels, i) => {
+            return <ChattingRoomList key={i}  {...channels} />
           })
         }
-
         </tbody>
       </table>
     </ChattingChannelContainer>

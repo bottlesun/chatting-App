@@ -11,7 +11,6 @@ import fetcher from "@utils/fetcher";
 
 const Matching = () => {
   const [inputText, setInputText] = useState('');
-  const {workspace, channel} = useParams<{ workspace: string, channel: string }>(); // :파라미터 값을 불러온다
   const inputRef = useRef<HTMLInputElement | null>(null);
   const {data: channelData,mutate} = useSWR<IChannel>( // 로그인 하지 않은 상태면 null 로 이동
     `api/workspaces/sleact/channels`, fetcher);

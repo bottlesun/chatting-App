@@ -5,11 +5,9 @@ import useSWR from "swr";
 import fetcher from "@utils/fetcher";
 import gravatar from "gravatar";
 import ChattingChannel from "@components/ChattingChannel";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import axios from "axios";
 import Modal from "@components/Modal";
-import {IChannel} from "@typings/db";
-import {useParams} from "react-router";
 
 
 const MatchingChannel = () => {
@@ -38,6 +36,11 @@ const MatchingChannel = () => {
       })
       .catch((error) => console.log(error.response.data));
   }, [mutate, userData])
+
+
+  if (userData === undefined) {
+    return <div>...로딩중</div>
+  }
 
   if (!userData) {
     return <Navigate to="/login"/>
