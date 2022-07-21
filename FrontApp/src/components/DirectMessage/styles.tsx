@@ -4,17 +4,16 @@ import {MentionsInput} from 'react-mentions';
 
 export const DM = styled.div`
   width: 95%;
-  height: 80px;
+
 `
 
 export const Form = styled.form`
-  display: flex;
   width: 100%;
+  display: flex;
 `
 
 export const TextArea = styled.textarea`
   width: 100%;
-  height: 75px;
   resize: none;
   border: 1px solid #eaeaea;
   border-radius: 5px;
@@ -40,7 +39,7 @@ export const InviteBtn = styled.div`
   font-size: 13px;
   text-align: center;
   line-height: 30px;
-  margin-top:10px;
+  margin-top: 10px;
 
   :hover {
     background-color: ${hoverColor};

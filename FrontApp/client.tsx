@@ -9,6 +9,6 @@ import App from '@layouts/App';
 
 root.render(
   <BrowserRouter>
-    <App/>
+    <App />
   </BrowserRouter>
 );

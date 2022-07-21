@@ -11,10 +11,8 @@ const ChattingComponent = loadable(() => import('@pages/ChattingComponent'))
 
 const App = () => {
 
-
-
   return (
-    <MainBg>
+    <MainBg >
       <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="/login" element={<Login/>}/>
