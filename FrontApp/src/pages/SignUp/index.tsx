@@ -56,7 +56,7 @@ const SingUp = () => {
   }
 
   if (data) {
-    return <Navigate to="/matching"/>
+    return <Navigate to="/workspace/sleact"/>
   }
 
 

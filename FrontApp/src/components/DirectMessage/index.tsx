@@ -1,7 +1,6 @@
-import React, {ChangeEvent, FormEvent, useCallback, useRef, FC, KeyboardEventHandler, useEffect} from "react";
+import React, {ChangeEvent, FormEvent, useCallback, useRef, FC, useEffect} from "react";
 import {ButtonWrap, DM, Form, InviteBtn, TextArea} from "@components/DirectMessage/styles";
 import Buttons from "@components/Buttons";
-import useInput from "@hooks/useInput";
 import autosize from "autosize";
 
 interface Props {

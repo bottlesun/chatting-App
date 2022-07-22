@@ -6,27 +6,33 @@ import useSWR from "swr";
 import fetcher from "@utils/fetcher";
 import {FiXCircle} from "react-icons/fi";
 import {Link} from "react-router-dom";
-import {IChannel, IUser} from "@typings/db";
+import {IChannel, IDM, IUser} from "@typings/db";
 import InviteChannelModal from "@components/InviteChannelModal";
 import {useParams} from "react-router";
 import useInput from "@hooks/useInput";
+import axios from "axios";
+
+const PAGE_SIZE = 20;
 
 const ChattingBox = () => {
-  const {channel, id} = useParams<{ channel: string, id: string }>();
-  const [newMember, onChangeNewMember, setNewMember] = useInput('');
+  const {channel, id, workspace} = useParams<{ channel: string, id: string, workspace: string }>();
   const {data: myData, mutate} = useSWR('/api/users', fetcher, {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
 
-  // const {data: userData} = useSWR(`/api/workspaces/sleact/users/${id}`, fetcher);
-  const {data: channelData} = useSWR<IChannel[]>('/api/workspaces/sleact/channels', fetcher);
+  const {data: userData} = useSWR(`/api/workspaces/sleact/users/${id}`, fetcher);
+  const {data: channelData} = useSWR<IChannel[]>(`/api/workspaces/${workspace}/channels`, fetcher);
   const {data: member, mutate: revalidateMembers} = useSWR<IUser[]>(
-    myData ? `/api/workspaces/sleact/channels/${channel}/members` : null,
+    myData ? `/api/workspaces/${workspace}/channels/${channel}/members` : null,
     fetcher,
   );
+  const {
+    data: chatData,
+    mutate: mutateChat
+  } = useSWR<IDM[]>(`/api/workspaces/${workspace}/channels/${channel}/chats?perPage=${PAGE_SIZE}&page=1`, fetcher
+  );
 
-
-  const [chat, onChangeChat,setChat] = useInput('')
+  const [chat, onChangeChat, setChat] = useInput('')
 
   const [showModal, setShowModal] = useState(false);
 
@@ -39,19 +45,30 @@ const ChattingBox = () => {
     setShowModal((prev) => !prev);
   }, []);
 
-  const onSubmitForm = useCallback((e:FormEvent<HTMLFormElement>) => {
+
+  const onSubmitForm = useCallback((e: FormEvent<HTMLFormElement>) => {
     //DM보내기
     e.preventDefault();
-    console.log('submit')
-    setChat('')
-  }, [])
+
+    if (chat?.trim()) {
+      axios.post(`/api/workspaces/${workspace}/channels/${channel}/chats`, {
+        content: chat,
+      })
+        .then(() => {
+          mutateChat()
+          console.log(chat)
+          setChat('');
+        })
+        .catch(console.error);
+    }
+  }, [chat])
 
 
   return (
     <ChatPageContainer onClick={oncloseModal}>
       <ChatHeader>
         <h3>Hello <span>{channel}방</span> 입니다! <span>({member?.length} 명)</span></h3>
-        <Link to="/matching"><FiXCircle/></Link>
+        <Link to={`/workspace/${workspace}`}><FiXCircle/></Link>
       </ChatHeader>
       <ChatScreen/>
       <DirectMessage onClickInviteChattingRoom={onClickInviteChattingRoom} chat={chat} onChangeChat={onChangeChat}

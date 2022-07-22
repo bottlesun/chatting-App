@@ -14,6 +14,7 @@ export const Form = styled.form`
 
 export const TextArea = styled.textarea`
   width: 100%;
+  max-height: 150px;
   resize: none;
   border: 1px solid #eaeaea;
   border-radius: 5px;

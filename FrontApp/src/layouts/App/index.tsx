@@ -17,8 +17,8 @@ const App = () => {
         <Route path="/" element={<Login/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}/>
-        <Route path="/matching" element={<MatchingChannel/>}/>
-        <Route path="/matching/sleact/channels/:channel" element={<ChattingComponent/>}/>
+        <Route path="/workspace/:workspace" element={<MatchingChannel/>}/>
+        <Route path="/workspace/:workspace/channels/:channel" element={<ChattingComponent/>}/>
       </Routes>
       <Version>V. 1.0.0</Version>
     </MainBg>

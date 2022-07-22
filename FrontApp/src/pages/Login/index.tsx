@@ -5,9 +5,11 @@ import {Link, Navigate,} from 'react-router-dom';
 import axios from "axios";
 import useSWR from "swr";
 import fetcher from "@utils/fetcher";
+import {useParams} from "react-router";
 
 
 const LogIn = () => {
+  const {workspace} = useParams<{ workspace: string }>();
   const {data, error, mutate} = useSWR('/api/users', fetcher, {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
@@ -39,7 +41,7 @@ const LogIn = () => {
   }
 
   if (data) {
-    return <Navigate to="/matching"/>
+    return <Navigate to="/workspace/sleact"/>
   }
 
   return (
