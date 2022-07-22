@@ -15,17 +15,19 @@ import axios from "axios";
 const PAGE_SIZE = 20;
 
 const ChattingBox = () => {
-  const {channel, id, workspace} = useParams<{ channel: string, id: string, workspace: string }>();
+  const {channel, workspace , id} = useParams<{ channel: string, workspace: string, id:string }>();
   const {data: myData, mutate} = useSWR('/api/users', fetcher, {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
 
-  const {data: userData} = useSWR(`/api/workspaces/sleact/users/${id}`, fetcher);
-  const {data: channelData} = useSWR<IChannel[]>(`/api/workspaces/${workspace}/channels`, fetcher);
   const {data: member, mutate: revalidateMembers} = useSWR<IUser[]>(
-    myData ? `/api/workspaces/${workspace}/channels/${channel}/members` : null,
+    myData ? `/api/workspaces/${workspace}/members` : null,
     fetcher,
   );
+
+  const {data: channelData} = useSWR<IChannel[]>(`/api/workspaces/${workspace}/channels`, fetcher);
+
+
   const {
     data: chatData,
     mutate: mutateChat
