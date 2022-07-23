@@ -6,7 +6,7 @@ import useSWR from "swr";
 import fetcher from "@utils/fetcher";
 import {FiXCircle} from "react-icons/fi";
 import {Link} from "react-router-dom";
-import {IChannel, IDM, IUser} from "@typings/db";
+import { IDM, IUser } from "@typings/db";
 import InviteChannelModal from "@components/InviteChannelModal";
 import {useParams} from "react-router";
 import useInput from "@hooks/useInput";
@@ -20,20 +20,13 @@ const ChattingBox = () => {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
 
-  const {data: member, mutate: revalidateMembers} = useSWR<IUser[]>(
-    myData ? `/api/workspaces/${workspace}/members` : null,
-    fetcher,
-  );
-
-  const {data: channelData} = useSWR<IChannel[]>(`/api/workspaces/${workspace}/channels`, fetcher);
-
+  const { data: memberData } = useSWR<IUser[]>(myData ? `/api/workspaces/${workspace}/channels/${channel}/members` : null, fetcher,);
 
   const {
     data: chatData,
     mutate: mutateChat
   } = useSWR<IDM[]>(`/api/workspaces/${workspace}/channels/${channel}/chats?perPage=${PAGE_SIZE}&page=1`, fetcher
   );
-
   const [chat, onChangeChat, setChat] = useInput('')
 
   const [showModal, setShowModal] = useState(false);
@@ -49,7 +42,7 @@ const ChattingBox = () => {
 
 
   const onSubmitForm = useCallback((e: FormEvent<HTMLFormElement>) => {
-    //DM보내기
+    //DM 보내기
     e.preventDefault();
 
     if (chat?.trim()) {
@@ -58,7 +51,6 @@ const ChattingBox = () => {
       })
         .then(() => {
           mutateChat()
-          console.log(chat)
           setChat('');
         })
         .catch(console.error);
@@ -66,10 +58,12 @@ const ChattingBox = () => {
   }, [chat])
 
 
+
+
   return (
     <ChatPageContainer onClick={oncloseModal}>
       <ChatHeader>
-        <h3>Hello <span>{channel}방</span> 입니다! <span>({member?.length} 명)</span></h3>
+        <h3>Hello <span>{channel}방</span> 입니다! <span>({memberData?.length} 명)</span></h3>
         <Link to={`/workspace/${workspace}`}><FiXCircle/></Link>
       </ChatHeader>
       <ChatScreen/>

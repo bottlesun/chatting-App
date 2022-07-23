@@ -8,14 +8,11 @@ import ChattingChannel from "@components/ChattingChannel";
 import {Navigate, useParams} from "react-router-dom";
 import axios from "axios";
 import Modal from "@components/Modal";
-import useSocket from "@hooks/useSocket";
 import {IChannel, IUser} from "@typings/db";
 
 
 const MatchingChannel = () => {
   const {workspace} = useParams<{ workspace: string }>();
-  const [socket, disconnectSocket] = useSocket(workspace);
-
   const {data: userData, mutate} = useSWR('/api/users', fetcher, {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
@@ -24,6 +21,7 @@ const MatchingChannel = () => {
   const {data: memberData} = useSWR<IUser[]>(userData ? `/api/workspaces/${workspace}/members` : null, fetcher);
   const imgUrl = gravatar.url(userData?.id, {s: '25', r: 'x', d: 'retro'}, true);
   const [show, setShow] = useState(false);
+
 
   const oncloseModal = useCallback(() => {
     setShow(false);
@@ -45,19 +43,6 @@ const MatchingChannel = () => {
       .catch((error) => console.log(error.response.data));
   }, [mutate, userData])
 
-
-  useEffect(() => {
-    return () => {
-      console.info('disconnect socket', workspace);
-      disconnectSocket();
-    };
-  }, [disconnectSocket, workspace]);
-  useEffect(() => {
-    if (channelData && userData) {
-      console.info('로그인하자', socket);
-      socket?.emit('login', { id: userData?.id, channels: channelData.map((v) => v.id) });
-    }
-  }, [socket, userData, channelData]);
 
 
 

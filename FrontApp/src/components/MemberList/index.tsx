@@ -27,6 +27,8 @@ const MemberList : FC<Props> = ({member,isOnline}) => {
     }
   }, [mutate, location.pathname, workspace, member]);
 
+
+
   return (
       <div><span></span>{member.nickname}</div>
   )

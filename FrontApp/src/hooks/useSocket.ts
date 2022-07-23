@@ -1,10 +1,11 @@
-import { useCallback } from 'react';
+import {useCallback} from "react";
 import { io, Socket } from 'socket.io-client';
 
 const backUrl = process.env.NODE_ENV === 'production' ? 'https://sleact.nodebird.com' : 'http://localhost:3095';
 
 const sockets: { [key: string]: Socket } = {};
 const useSocket = (workspace?: string): [Socket | undefined, () => void] => {
+  console.log('rerender' , workspace)
   const disconnect = useCallback(() => {
     if (workspace && sockets[workspace]) {
       sockets[workspace].disconnect();
@@ -18,7 +19,7 @@ const useSocket = (workspace?: string): [Socket | undefined, () => void] => {
     sockets[workspace] = io(`${backUrl}/ws-${workspace}`, {
       transports: ['websocket'], //  transports: ['websocket'] 웹소켓만 써라 polling을 막아준다
     });
-    console.info('create socket', workspace, sockets[workspace]);
+    console.info('create socket', workspace, sockets[workspace],);
   }
 
   return [sockets[workspace], disconnect];
