@@ -4,6 +4,7 @@ import {MentionsInput} from 'react-mentions';
 
 export const DM = styled.div`
   width: 95%;
+  margin-top: 5px;
 
 `
 
@@ -12,7 +13,7 @@ export const Form = styled.form`
   display: flex;
 `
 
-export const TextArea = styled.textarea`
+export const TextArea = styled(MentionsInput)`
   width: 100%;
   max-height: 150px;
   resize: none;
@@ -20,11 +21,25 @@ export const TextArea = styled.textarea`
   border-radius: 5px;
   padding: 5px;
 
-  :focus, :hover {
+
+  & :focus {
+    border: none;
     outline: none;
   }
-
-
+  & strong {
+    background: skyblue;
+    padding: 5px;
+    color: transparent;
+  }
+  & textarea {
+    height: 44px;
+    padding: 9px 10px !important;
+    outline: none !important;
+    border-radius: 4px !important;
+    resize: none !important;
+    line-height: 22px;
+    border: none;
+  }
 `
 export const InviteBtn = styled.div`
   width: 70px;
@@ -51,5 +66,24 @@ export const ButtonWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: 30%;
-
 `
+
+export const EachMention = styled.button<{ focus: boolean }>`
+  padding: 4px 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  color: rgb(28, 29, 28);
+  width: 100%;
+  & img {
+    margin-right: 5px;
+  }
+  
+  ${({focus}) =>
+          focus &&
+          `
+    background: #1264a3;
+    color: white;
+  `};
+`;
