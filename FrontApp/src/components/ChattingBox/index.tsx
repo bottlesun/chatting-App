@@ -11,6 +11,7 @@ import InviteChannelModal from "@components/InviteChannelModal";
 import {useParams} from "react-router";
 import useInput from "@hooks/useInput";
 import axios from "axios";
+import useSocket from "@hooks/useSocket";
 
 const PAGE_SIZE = 20;
 

@@ -5,10 +5,12 @@ import useSWR from "swr";
 import fetcher from "@utils/fetcher";
 import gravatar from "gravatar";
 import ChattingChannel from "@components/ChattingChannel";
-import {Navigate, useParams} from "react-router-dom";
+import {Navigate, Route, useParams ,Routes} from "react-router-dom";
 import axios from "axios";
 import Modal from "@components/Modal";
 import {IChannel, IUser} from "@typings/db";
+import loadable from "@loadable/component";
+const ChattingComponent = loadable(() => import('@pages/ChattingComponent'))
 
 
 const MatchingChannel = () => {

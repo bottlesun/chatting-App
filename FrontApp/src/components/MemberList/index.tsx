@@ -1,6 +1,6 @@
 import { IUser } from '@typings/db';
 import fetcher from '@utils/fetcher';
-import React, { useEffect, FC } from 'react';
+import React, {useEffect, FC, useCallback} from 'react';
 import { useParams } from 'react-router';
 import { NavLink, useLocation } from 'react-router-dom';
 import useSWR from 'swr';
@@ -21,16 +21,19 @@ const MemberList : FC<Props> = ({member,isOnline}) => {
     userData ? `/api/workspaces/${workspace}/dms/${member.id}/unreads?after=${date}` : null,
     fetcher,
   );
+
+  const ClassAction = useCallback(() => {
+
+  },[])
+
   useEffect(() => {
     if (location.pathname === `/workspace/${workspace}/dm/${member.id}`) {
       mutate(0);
     }
   }, [mutate, location.pathname, workspace, member]);
 
-
-
   return (
-      <div><span></span>{member.nickname}</div>
+      <div><span className={isOnline ? 'selected' : ""}></span>{member.nickname}</div>
   )
 }
 
