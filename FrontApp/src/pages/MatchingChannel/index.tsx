@@ -19,11 +19,8 @@ const MatchingChannel = () => {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
 
-  const {data: channelData} = useSWR<IChannel[]>(userData ? `/api/workspaces/${workspace}/channels` : null, fetcher);
-  const {data: memberData} = useSWR<IUser[]>(userData ? `/api/workspaces/${workspace}/members` : null, fetcher);
-  const imgUrl = gravatar.url(userData?.id, {s: '25', r: 'x', d: 'retro'}, true);
+  const imgUrl = gravatar.url(userData?.email, {s: '25', r: 'x', d: 'retro'}, true);
   const [show, setShow] = useState(false);
-
 
   const oncloseModal = useCallback(() => {
     setShow(false);

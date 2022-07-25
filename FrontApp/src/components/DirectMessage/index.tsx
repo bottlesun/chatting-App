@@ -58,6 +58,7 @@ const DirectMessage: FC<Props> = ({onClickInviteChattingRoom, chat, onSubmitForm
     [memberData],
   );
 
+
   return (
     <DM>
       <Form onSubmit={onSubmitForm}>

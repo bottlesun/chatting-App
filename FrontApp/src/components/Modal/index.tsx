@@ -10,7 +10,7 @@ const Modal: FC<ModalInterface> = ({onLogout, style}) => {
     dedupingInterval: 2000, // 이 시간 범위내에 동일 키를 사용하는 요청 중복 제거
   });
 
-  const imgUrl = gravatar.url(data?.id, {s: '25', r: 'x', d: 'retro'}, true);
+  const imgUrl = gravatar.url(data?.email, {s: '25', r: 'x', d: 'retro'}, true);
 
   const stopPropagation = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
